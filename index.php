@@ -234,7 +234,7 @@
         <div>
           <h3 class="text-lg font-semibold mb-4">Produit</h3>
           <ul class="space-y-2">
-            <li><a href="fonctionnalité.html" class="text-gray-400 hover:text-white transition">Fonctionnalités</a></li>
+            <li><a href="fonctionnalité.php" class="text-gray-400 hover:text-white transition">Fonctionnalités</a></li>
             <!-- <li><a href="#" class="text-gray-400 hover:text-white transition">Tarifs</a></li>
             <li><a href="#" class="text-gray-400 hover:text-white transition">API</a></li> -->
             <!-- <li><a href="#" class="text-gray-400 hover:text-white transition">Documentation</a></li> -->

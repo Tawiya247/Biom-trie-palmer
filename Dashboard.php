@@ -106,12 +106,14 @@ $resultats = $manager->getPresencesDuJour($date);
             <div class="flex justify-between items-center">
                 <h1 class="text-2xl font-bold text-gray-800">Présences du jour</h1>
                 <div class="flex space-x-2">
-                    <button class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition flex items-center">
-                        <i class="fas fa-file-excel mr-2"></i> Excel
-                    </button>
-                    <button class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition flex items-center">
-                        <i class="fas fa-file-pdf mr-2"></i> PDF
-                    </button>
+                    <a href="export_excel.php" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition flex items-center">
+    <i class="fas fa-file-excel mr-2"></i> Exporter Excel
+</a>
+
+<!-- Ancien bouton PDF -->
+<a href="export_pdf.php" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition flex items-center">
+    <i class="fas fa-file-pdf mr-2"></i> Exporter PDF
+</a>
                 </div>
             </div>
         </header>
@@ -255,12 +257,14 @@ $resultats = $manager->getPresencesDuJour($date);
                 </div>
                 <div class="px-4 py-3 bg-gray-50 border-t flex items-center justify-between">
                     <div class="flex space-x-2">
-                        <button class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition flex items-center">
-                            <i class="fas fa-file-excel mr-2"></i> Exporter Excel
-                        </button>
-                        <button class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition flex items-center">
-                            <i class="fas fa-file-pdf mr-2"></i> Exporter PDF
-                        </button>
+                       <a href="export_excel.php" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition flex items-center">
+    <i class="fas fa-file-excel mr-2"></i> Exporter Excel
+</a>
+
+<!-- Ancien bouton PDF -->
+<a href="export_pdf.php" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition flex items-center">
+    <i class="fas fa-file-pdf mr-2"></i> Exporter PDF
+</a>
                     </div>
                 </div>
             </div>
@@ -300,3 +304,4 @@ $resultats = $manager->getPresencesDuJour($date);
     </script>
 </body>
 </html>
+

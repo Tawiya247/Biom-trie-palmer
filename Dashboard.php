@@ -525,7 +525,7 @@ if (!isset($_SESSION['admin_id'])) {
             </div>
         </div>
     </div>
-    <script>
+        <script>
         // Toggle mobile menu
         document.getElementById('menuToggle').addEventListener('click', function() {
             document.getElementById('sidebar').classList.add('open');
@@ -536,6 +536,10 @@ if (!isset($_SESSION['admin_id'])) {
         // Navigation between pages
         document.querySelectorAll('nav a').forEach(link => {
             link.addEventListener('click', function(e) {
+                // Permettre le comportement normal pour le lien de déconnexion
+                if (this.getAttribute('href') === 'deconnexion.php') {
+                    return; // Laisser le navigateur gérer la navigation vers deconnexion.php
+                }
                 // Supprimer la condition qui permettait de charger des fichiers externes
                 // if (this.getAttribute('href').includes('.html')) {
                 //     return; // Allow navigation to external pages like employés.html and paramètre.html

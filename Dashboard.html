@@ -5,7 +5,6 @@ if (!isset($_SESSION['admin_id'])) {
     exit();
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -93,7 +92,6 @@ if (!isset($_SESSION['admin_id'])) {
             <i class="fas fa-bars text-gray-700"></i>
         </button>
     </div>
-
     <!-- Sidebar Navigation -->
     <div id="sidebar" class="sidebar fixed inset-y-0 left-0 w-72 text-white p-6 shadow-2xl z-40">
         <div class="flex items-center justify-between mb-10">
@@ -105,11 +103,10 @@ if (!isset($_SESSION['admin_id'])) {
                 <i class="fas fa-times"></i>
             </button>
         </div>
-        
         <nav class="mb-8">
             <ul class="space-y-2">
                 <li>
-                    <a href="#" class="nav-item active flex items-center p-4 text-white">
+                    <a href="#" class="nav-item active flex items-center p-4 text-white"> <!-- Ajout de 'active' ici -->
                         <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center mr-4">
                             <i class="fas fa-calendar-day"></i>
                         </div>
@@ -120,7 +117,7 @@ if (!isset($_SESSION['admin_id'])) {
                     </a>
                 </li>
                 <li>
-                    <a href="#rapport" class="nav-item flex items-center p-4 text-white">
+                    <a href="#rapport" class="nav-item flex items-center p-4 text-white"> <!-- Retrait de 'active' ici -->
                         <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center mr-4">
                             <i class="fas fa-chart-bar"></i>
                         </div>
@@ -131,7 +128,7 @@ if (!isset($_SESSION['admin_id'])) {
                     </a>
                 </li>
                 <li>
-                    <a href="#direction" class="nav-item flex items-center p-4 text-white">
+                    <a href="#direction" class="nav-item flex items-center p-4 text-white"> <!-- Retrait de 'active' ici -->
                         <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center mr-4">
                             <i class="fas fa-users-cog"></i>
                         </div>
@@ -142,7 +139,7 @@ if (!isset($_SESSION['admin_id'])) {
                     </a>
                 </li>
                 <li>
-                    <a href="employés.html" class="nav-item flex items-center p-4 text-white">
+                    <a href="#employés" class="nav-item flex items-center p-4 text-white"> <!-- Retrait de 'active' ici -->
                         <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center mr-4">
                             <i class="fas fa-user-tie"></i>
                         </div>
@@ -153,19 +150,18 @@ if (!isset($_SESSION['admin_id'])) {
                     </a>
                 </li>
                 <li>
-                    <a href="paramètre.html" class="nav-item flex items-center p-4 text-white">
+                    <a href="deconnexion.php" class="nav-item flex items-center p-4 text-white">
                         <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center mr-4">
-                            <i class="fas fa-cog"></i>
+                            <i class="fas fa-sign-out-alt"></i>
                         </div>
                         <div>
-                            <span class="font-medium">Paramètres</span>
-                            <p class="text-xs text-gray-300">Configuration</p>
+                            <span class="font-medium">Déconnexion</span>
+                            <p class="text-xs text-gray-300">Se déconnecter</p>
                         </div>
                     </a>
                 </li>
             </ul>
         </nav>
-
         <div class="absolute bottom-6 left-6 right-6">
             <div class="glassmorphism p-4 rounded-xl">
                 <div class="flex items-center">
@@ -180,33 +176,16 @@ if (!isset($_SESSION['admin_id'])) {
             </div>
         </div>
     </div>
-
     <!-- Main Content -->
     <div class="md:ml-72 min-h-screen">
         <!-- Header -->
-        <header class="p-6">
-            <div class="bg-white rounded-2xl shadow-lg p-6 glassmorphism">
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                    <div>
-                        <h1 class="text-3xl font-bold text-gray-800 mb-2">Présences du jour</h1>
-                        <p class="text-gray-600"><?php echo date('d F Y'); ?></p>
-                    </div>
-                    <div class="flex flex-wrap gap-3">
-                        <!-- <a href="export_excel.php" class="px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 flex items-center">
-                            <i class="fas fa-file-excel mr-2"></i> 
-                            Excel
-                        </a>
-                        <a href="export_pdf.php" class="px-6 py-3 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-xl hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 flex items-center">
-                            <i class="fas fa-file-pdf mr-2"></i> 
-                            PDF
-                        </a> -->
-                    </div>
-                </div>
+        <header class="w-full bg-white shadow mb-4">
+            <div class="px-6 py-4 flex flex-col md:flex-row justify-between items-center">
+                <!-- Ajoutez ici du contenu si besoin -->
             </div>
         </header>
-
         <!-- Dashboard Content -->
-        <main class="px-6 pb-6">
+        <main class="px-6 pb-6"> <!-- Retrait de 'hidden' ici -->
             <!-- Stats Cards -->
             <?php
                 $presentCount = 0;
@@ -236,7 +215,6 @@ if (!isset($_SESSION['admin_id'])) {
                         </div>
                     </div>
                 </div>
-
                 <div class="bg-white rounded-2xl shadow-lg p-6 card-hover">
                     <div class="flex items-center justify-between">
                         <div>
@@ -251,7 +229,6 @@ if (!isset($_SESSION['admin_id'])) {
                         </div>
                     </div>
                 </div>
-
                 <div class="bg-white rounded-2xl shadow-lg p-6 card-hover">
                     <!-- <div class="flex items-center justify-between">
                         <div>
@@ -266,7 +243,6 @@ if (!isset($_SESSION['admin_id'])) {
                         </div>
                     </div> -->
                 </div>
-
                 <div class="bg-white rounded-2xl shadow-lg p-6 card-hover">
                     <div class="flex items-center justify-between">
                         <div>
@@ -282,7 +258,6 @@ if (!isset($_SESSION['admin_id'])) {
                     </div>
                 </div>
             </div>
-
             <!-- Presence Table -->
             <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
                 <div class="p-6 border-b border-gray-100">
@@ -304,7 +279,6 @@ if (!isset($_SESSION['admin_id'])) {
                         </div>
                     </div>
                 </div>
-                
                 <div class="overflow-x-auto">
                     <table class="w-full">
                         <thead class="bg-gray-50">
@@ -381,9 +355,8 @@ if (!isset($_SESSION['admin_id'])) {
             </div>
         </main>
         <!-- End of Dashboard Content -->
-
         <!-- Rapport Section -->
-        <div id="rapport" class="px-6 pb-6 hidden">
+        <div id="rapport" class="px-6 pb-6 hidden"> <!-- Ajout de 'hidden' ici -->
             <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
                 <div class="p-6 border-b border-gray-100">
                     <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
@@ -405,7 +378,6 @@ if (!isset($_SESSION['admin_id'])) {
                         </div>
                     </div>
                 </div>
-                
                 <div class="p-6">
                     <div class="text-center py-20">
                         <div class="w-20 h-20 rounded-full bg-gradient-to-r from-blue-400 to-purple-400 flex items-center justify-center mx-auto mb-4">
@@ -413,7 +385,6 @@ if (!isset($_SESSION['admin_id'])) {
                         </div>
                         <h3 class="text-lg font-medium text-gray-800 mb-2">Rapport en cours de développement</h3>
                         <p class="text-gray-600 max-w-md mx-auto">Les analyses détaillées et les graphiques seront bientôt disponibles dans cette section.</p>
-                        
                         <div class="flex justify-center gap-3 mt-8">
                             <a href="export_excel.php" class="px-6 py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 flex items-center">
                                 <i class="fas fa-file-excel mr-2"></i> Exporter Excel
@@ -426,14 +397,12 @@ if (!isset($_SESSION['admin_id'])) {
                 </div>
             </div>
         </div>
-
         <!-- Direction Section -->
-        <div id="direction" class="px-6 pb-6 hidden">
+        <div id="direction" class="px-6 pb-6 hidden"> <!-- Ajout de 'hidden' ici -->
             <div class="bg-white rounded-2xl shadow-lg p-6 glassmorphism mb-6">
                 <h1 class="text-3xl font-bold text-gray-800 mb-2">Gestion des Départements</h1>
                 <p class="text-gray-600">Liste des départements et directeurs</p>
             </div>
-
             <!-- Formulaire ajout -->
             <div class="bg-white rounded-2xl shadow-lg overflow-hidden card-hover mb-6">
                 <div class="p-6 border-b border-gray-100">
@@ -456,7 +425,6 @@ if (!isset($_SESSION['admin_id'])) {
                     </form>
                 </div>
             </div>
-
             <!-- Tableau départements -->
             <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
                 <div class="p-6 border-b border-gray-100 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
@@ -483,59 +451,125 @@ if (!isset($_SESSION['admin_id'])) {
                 </div>
             </div>
         </div>
+        <!-- Employés Section -->
+        <div id="employés" class="px-6 pb-6 hidden"> <!-- Ajout de 'hidden' ici -->
+            <div class="bg-white rounded-2xl shadow-lg p-6 glassmorphism mb-6">
+                <h1 class="text-3xl font-bold text-gray-800 mb-2">Gestion des Employés</h1>
+                <p class="text-gray-600">Ajouter, modifier ou supprimer des employés</p>
+            </div>
+            <!-- Formulaire ajout employé -->
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden card-hover mb-6">
+                <div class="p-6 border-b border-gray-100">
+                    <h2 class="text-xl font-bold text-gray-800">Ajouter un Employé</h2>
+                    <p class="text-gray-600 text-sm mt-1">Enregistrer un nouvel employé</p>
+                </div>
+                <div class="p-6">
+                    <form id="addEmployeeForm" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+                        <div class="relative">
+                            <input type="text" id="nom" placeholder="Nom" class="search-input pl-12 pr-4 py-3 rounded-xl focus:outline-none w-full" required>
+                            <i class="fas fa-user absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        </div>
+                        <div class="relative">
+                            <input type="text" id="prenom" placeholder="Prénom" class="search-input pl-12 pr-4 py-3 rounded-xl focus:outline-none w-full" required>
+                            <i class="fas fa-user absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        </div>
+                        <div class="relative">
+                            <input type="tel" id="telephone" placeholder="Téléphone" class="search-input pl-12 pr-4 py-3 rounded-xl focus:outline-none w-full" required>
+                            <i class="fas fa-phone absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        </div>
+                        <div class="relative">
+                            <input type="text" id="poste" placeholder="Poste" class="search-input pl-12 pr-4 py-3 rounded-xl focus:outline-none w-full" required>
+                            <i class="fas fa-briefcase absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        </div>
+                        <div class="relative">
+                            <input type="text" id="departement" placeholder="Département" class="search-input pl-12 pr-4 py-3 rounded-xl focus:outline-none w-full" required>
+                            <i class="fas fa-building absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        </div>
+                        <div class="md:col-span-2 lg:col-span-5 flex justify-end">
+                            <button type="submit" class="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 flex items-center">
+                                <i class="fas fa-plus mr-2"></i> Ajouter l'employé
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- Tableau employés -->
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                <div class="p-6 border-b border-gray-100 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div>
+                        <h2 class="text-xl font-bold text-gray-800">Liste des Employés</h2>
+                        <p class="text-gray-600 text-sm mt-1">Tous les employés enregistrés</p>
+                    </div>
+                    <div class="relative">
+                        <input type="text" id="searchEmployee" placeholder="Rechercher un employé..." class="search-input pl-12 pr-4 py-3 rounded-xl focus:outline-none w-full md:w-80">
+                        <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                    </div>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Nom</th>
+                                <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Prénom</th>
+                                <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Téléphone</th>
+                                <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Poste</th>
+                                <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Département</th>
+                                <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="employeeTableBody" class="divide-y divide-gray-100">
+                            <!-- Les employés seront ajoutés ici dynamiquement -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
-      
     <script>
         // Toggle mobile menu
         document.getElementById('menuToggle').addEventListener('click', function() {
             document.getElementById('sidebar').classList.add('open');
         });
-
         document.getElementById('closeMenu').addEventListener('click', function() {
             document.getElementById('sidebar').classList.remove('open');
         });
-
         // Navigation between pages
         document.querySelectorAll('nav a').forEach(link => {
             link.addEventListener('click', function(e) {
-                if (this.getAttribute('href').includes('.html')) {
-                    return; // Allow navigation to external pages like employés.html and paramètre.html
-                }
+                // Supprimer la condition qui permettait de charger des fichiers externes
+                // if (this.getAttribute('href').includes('.html')) {
+                //     return; // Allow navigation to external pages like employés.html and paramètre.html
+                // }
                 e.preventDefault();
-
                 // Remove active class from all nav items
                 document.querySelectorAll('.nav-item').forEach(item => {
                     item.classList.remove('active');
                 });
-                
                 // Add active class to clicked item
                 this.classList.add('active');
-
                 // Hide all sections
-                document.querySelectorAll('main, #rapport, #direction').forEach(section => {
+                document.querySelectorAll('main, #rapport, #direction, #employés').forEach(section => {
                     section.classList.add('hidden');
                 });
-
                 // Show the selected section
                 const target = this.getAttribute('href');
                 if (target === '#rapport') {
                     document.getElementById('rapport').classList.remove('hidden');
                 } else if (target === '#direction') {
                     document.getElementById('direction').classList.remove('hidden');
+                } else if (target === '#employés') {
+                    document.getElementById('employés').classList.remove('hidden');
                 } else {
                     document.querySelector('main').classList.remove('hidden');
                 }
-
                 // Close mobile menu if open
                 document.getElementById('sidebar').classList.remove('open');
             });
         });
-
         // Search functionality for employees
         document.querySelector('input[placeholder="Rechercher un employé..."]').addEventListener('input', function() {
             const searchTerm = this.value.toLowerCase();
             const rows = document.querySelectorAll('tbody tr');
-            
             rows.forEach(row => {
                 const employeeName = row.querySelector('td:first-child p').textContent.toLowerCase();
                 if (employeeName.includes(searchTerm)) {
@@ -545,12 +579,10 @@ if (!isset($_SESSION['admin_id'])) {
                 }
             });
         });
-
         // Status filter for employees
         document.querySelector('select').addEventListener('change', function() {
             const selectedStatus = this.value.toLowerCase();
             const rows = document.querySelectorAll('tbody tr');
-            
             rows.forEach(row => {
                 const statusBadge = row.querySelector('.status-badge');
                 if (selectedStatus === 'tous les statuts' || 
@@ -561,7 +593,6 @@ if (!isset($_SESSION['admin_id'])) {
                 }
             });
         });
-
         // Add smooth animations on page load
         window.addEventListener('load', function() {
             const cards = document.querySelectorAll('.card-hover');
@@ -570,7 +601,6 @@ if (!isset($_SESSION['admin_id'])) {
                     card.style.opacity = '0';
                     card.style.transform = 'translateY(20px)';
                     card.style.transition = 'all 0.6s ease';
-                    
                     requestAnimationFrame(() => {
                         card.style.opacity = '1';
                         card.style.transform = 'translateY(0)';
@@ -578,7 +608,6 @@ if (!isset($_SESSION['admin_id'])) {
                 }, index * 100);
             });
         });
-
         // Gestion départements
         let departments = [];
         function renderTable() {
@@ -593,7 +622,6 @@ if (!isset($_SESSION['admin_id'])) {
                     </tr>`;
             });
         }
-
         document.getElementById('addForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const deptName = document.getElementById('deptName');
@@ -603,20 +631,68 @@ if (!isset($_SESSION['admin_id'])) {
             director.value = '';
             renderTable();
         });
-
         function removeDept(i) {
             departments.splice(i, 1);
             renderTable();
         }
-
         // Search functionality for departments
         document.getElementById('searchDept').addEventListener('input', function() {
             const searchTerm = this.value.toLowerCase();
             const rows = document.getElementById('deptTableBody').querySelectorAll('tr');
-            
             rows.forEach(row => {
                 const deptName = row.querySelector('td:first-child span').textContent.toLowerCase();
                 if (deptName.includes(searchTerm)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+        // Gestion employés
+        let employees = [];
+        function renderEmployeeTable() {
+            const tbody = document.getElementById('employeeTableBody');
+            tbody.innerHTML = '';
+            employees.forEach((emp, i) => {
+                tbody.innerHTML += `
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-6 py-4">${emp.nom}</td>
+                        <td class="px-6 py-4">${emp.prenom}</td>
+                        <td class="px-6 py-4">${emp.telephone}</td>
+                        <td class="px-6 py-4">${emp.poste}</td>
+                        <td class="px-6 py-4">${emp.departement}</td>
+                        <td class="px-6 py-4">
+                            <button onclick="removeEmployee(${i})" class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>`;
+            });
+        }
+        document.getElementById('addEmployeeForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const nom = document.getElementById('nom').value;
+            const prenom = document.getElementById('prenom').value;
+            const telephone = document.getElementById('telephone').value;
+            const poste = document.getElementById('poste').value;
+            const departement = document.getElementById('departement').value;
+            employees.push({ nom, prenom, telephone, poste, departement });
+            // Réinitialiser le formulaire
+            document.getElementById('addEmployeeForm').reset();
+            renderEmployeeTable();
+        });
+        function removeEmployee(i) {
+            employees.splice(i, 1);
+            renderEmployeeTable();
+        }
+        // Search functionality for employees in employee section
+        document.getElementById('searchEmployee').addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const rows = document.getElementById('employeeTableBody').querySelectorAll('tr');
+            rows.forEach(row => {
+                const nom = row.querySelector('td:first-child').textContent.toLowerCase();
+                const prenom = row.querySelector('td:nth-child(2)').textContent.toLowerCase();
+                if (nom.includes(searchTerm) || prenom.includes(searchTerm)) {
                     row.style.display = '';
                 } else {
                     row.style.display = 'none';

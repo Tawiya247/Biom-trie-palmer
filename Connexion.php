@@ -3,13 +3,10 @@ session_start();
 
 $erreur = false;
 
-// Connexion à PostgreSQL
-try {
-    $pdo = new PDO('pgsql:host=localhost;dbname=gestion_presence', 'postgres', 'root'); // ← Mot de passe à vérifier
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    die("Erreur de connexion à la base de données : " . $e->getMessage());
-}
+// Utilisation de la classe Database pour la connexion
+require_once 'Database.php';
+$database = new Database();
+$pdo = $database->getConnection();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nom = trim($_POST['nom'] ?? '');

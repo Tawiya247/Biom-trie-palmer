@@ -1,7 +1,7 @@
 <?php
 class Database {
     private $host = 'localhost';
-    private $dbname = 'biopalmer';
+    private $dbname = 'gestion_presence';
     private $user = 'postgres';
     private $password = 'root';
     public $pdo;

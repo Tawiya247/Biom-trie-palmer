@@ -62,6 +62,7 @@ $resultats = $manager->getPresencesDuJour($date);
             <i class="fas fa-bars text-gray-700"></i>
         </button>
     </div>
+
     <!-- Sidebar Navigation -->
     <div id="sidebar" class="sidebar fixed inset-y-0 left-0 w-64 bg-blue-800 text-white p-4 shadow-lg">
         <div class="flex items-center justify-between mb-8">
@@ -85,11 +86,11 @@ $resultats = $manager->getPresencesDuJour($date);
                     </a>
                 </li>
                 <li>
-                    <a href="logout.php" class="flex items-center p-3 rounded-lg hover:bg-blue-700 transition text-red-200 hover:text-white">
-                        <i class="fas fa-sign-out-alt mr-3"></i>
-                        <span>Déconnexion</span>
-                    </a>
-                </li>
+        <a href="paramètre.html" class="flex items-center p-3 rounded-lg hover:bg-blue-700 transition">
+            <i class="fas fa-cog mr-3"></i>
+            <span>Paramètres</span>
+        </a>
+    </li>
             </ul>
         </nav>
         <div class="absolute bottom-4 left-4 right-4">
@@ -99,14 +100,16 @@ $resultats = $manager->getPresencesDuJour($date);
             </div>
         </div>
     </div>
+
     <!-- Main Content -->
     <div class="md:ml-64 min-h-screen">
         <!-- Header -->
         <header class="bg-white shadow-sm p-4">
             <div class="flex justify-between items-center">
-                <h1 class="text-2xl font-bold text-gray-800">Présences du jour</h1>
+                <h1 class="text-2xl font-bold text-gray-800">Présences du jour<?php echo $date; ?></h1>
                 <div class="flex space-x-2">
-                    <a href="export_excel.php" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition flex items-center">
+                    <!-- Ancien bouton Excel -->
+<a href="export_excel.php" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition flex items-center">
     <i class="fas fa-file-excel mr-2"></i> Exporter Excel
 </a>
 
@@ -114,60 +117,62 @@ $resultats = $manager->getPresencesDuJour($date);
 <a href="export_pdf.php" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition flex items-center">
     <i class="fas fa-file-pdf mr-2"></i> Exporter PDF
 </a>
+
                 </div>
             </div>
         </header>
+
         <!-- Dashboard Content -->
         <main class="p-6">
             <!-- Stats Cards -->
             <?php
-            $presentCount = 0;
-            $absentCount = 0;
-            $lateCount = 0;
-            foreach ($resultats as $row) {
-                if (isset($row['statut'])) {
-                    $statut = strtolower($row['statut']);
-                    if ($statut === 'présent') $presentCount++;
-                    elseif ($statut === 'absent') $absentCount++;
-                    elseif ($statut === 'en retard') $lateCount++;
-                }
-            }
-            ?>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-                <div class="bg-white rounded-lg shadow p-6">
-                    <div class="flex items-center">
-                        <div class="p-3 rounded-full bg-green-100 mr-4">
-                            <i class="fas fa-user-check text-green-600"></i>
-                        </div>
-                        <div>
-                            <p class="text-gray-500">Présents</p>
-                            <h3 class="text-2xl font-bold"><?php echo $presentCount; ?></h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-white rounded-lg shadow p-6">
-                    <div class="flex items-center">
-                        <div class="p-3 rounded-full bg-red-100 mr-4">
-                            <i class="fas fa-user-times text-red-600"></i>
-                        </div>
-                        <div>
-                            <p class="text-gray-500">Absents</p>
-                            <h3 class="text-2xl font-bold"><?php echo $absentCount; ?></h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-white rounded-lg shadow p-6">
-                    <div class="flex items-center">
-                        <div class="p-3 rounded-full bg-yellow-100 mr-4">
-                            <i class="fas fa-clock text-yellow-600"></i>
-                        </div>
-                        <div>
-                            <p class="text-gray-500">Retards</p>
-                            <h3 class="text-2xl font-bold"><?php echo $lateCount; ?></h3>
-                        </div>
-                    </div>
-                </div>
+    $presentCount = 0;
+    $absentCount = 0;
+    $lateCount = 0;
+    foreach ($resultats as $row) {
+        if (isset($row['statut'])) {
+            $statut = strtolower($row['statut']);
+            if ($statut === 'présent') $presentCount++;
+            elseif ($statut === 'absent') $absentCount++;
+            elseif ($statut === 'en retard') $lateCount++;
+        }
+    }
+?>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+    <div class="bg-white rounded-lg shadow p-6">
+        <div class="flex items-center">
+            <div class="p-3 rounded-full bg-green-100 mr-4">
+                <i class="fas fa-user-check text-green-600"></i>
             </div>
+            <div>
+                <p class="text-gray-500">Présents</p>
+                <h3 class="text-2xl font-bold"><?php echo $presentCount; ?></h3>
+            </div>
+        </div>
+    </div>
+    <div class="bg-white rounded-lg shadow p-6">
+        <div class="flex items-center">
+            <div class="p-3 rounded-full bg-red-100 mr-4">
+                <i class="fas fa-user-times text-red-600"></i>
+            </div>
+            <div>
+                <p class="text-gray-500">Absents</p>
+                <h3 class="text-2xl font-bold"><?php echo $absentCount; ?></h3>
+            </div>
+        </div>
+    </div>
+    <div class="bg-white rounded-lg shadow p-6">
+        <div class="flex items-center">
+            <div class="p-3 rounded-full bg-yellow-100 mr-4">
+                <i class="fas fa-clock text-yellow-600"></i>
+            </div>
+            <!-- <div>
+                <p class="text-gray-500">Retards</p>
+                <h3 class="text-2xl font-bold"><?php echo $lateCount; ?></h3>
+            </div> -->
+        </div>
+    </div>
+</div>
             <!-- Presence Table -->
             <div class="bg-white rounded-lg shadow overflow-hidden">
                 <div class="p-4 border-b flex justify-between items-center">
@@ -228,8 +233,28 @@ $resultats = $manager->getPresencesDuJour($date);
                         </tbody>
                     </table>
                 </div>
+                <!-- <div class="px-4 py-3 bg-gray-50 border-t flex items-center justify-between">
+                    <div class="text-sm text-gray-500">
+                        Affichage de <span class="font-medium">1</span> à <span class="font-medium">10</span> sur <span class="font-medium">27</span> résultats
+                    </div>
+                    <div class="flex space-x-2">
+                        <button class="px-3 py-1 border rounded-md bg-white text-gray-700 hover:bg-gray-50">
+                            Précédent
+                        </button>
+                        <button class="px-3 py-1 border rounded-md bg-blue-600 text-white">
+                            1
+                        </button>
+                        <button class="px-3 py-1 border rounded-md bg-white text-gray-700 hover:bg-gray-50">
+                            2
+                        </button>
+                        <button class="px-3 py-1 border rounded-md bg-white text-gray-700 hover:bg-gray-50">
+                            Suivant
+                        </button>
+                    </div>
+                </div> -->
             </div>
         </main>
+
         <!-- Rapport Section (hidden by default) -->
         <div id="rapport" class="p-6 hidden">
             <div class="bg-white rounded-lg shadow overflow-hidden">
@@ -252,12 +277,95 @@ $resultats = $manager->getPresencesDuJour($date);
                 </div>
                 <div class="p-4">
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        <!-- Employee Cards (exemples commentés) -->
+                        <!-- Employee Cards
+                        <div class="border rounded-lg p-4 hover:shadow-md transition">
+                            <div class="flex items-center mb-3">
+                                <div class="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center mr-3">
+                                    <i class="fas fa-user text-gray-500"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-medium">Jean Dupont</h3>
+                                    <p class="text-sm text-gray-500">Développeur</p>
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-gray-500">Présences:</span>
+                                    <span class="font-medium">22/24</span>
+                                </div>
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-gray-500">Retards:</span>
+                                    <span class="font-medium">3</span>
+                                </div>
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-gray-500">Absences:</span>
+                                    <span class="font-medium">2</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="border rounded-lg p-4 hover:shadow-md transition">
+                            <div class="flex items-center mb-3">
+                                <div class="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center mr-3">
+                                    <i class="fas fa-user text-gray-500"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-medium">Marie Martin</h3>
+                                    <p class="text-sm text-gray-500">Designer</p>
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-gray-500">Présences:</span>
+                                    <span class="font-medium">24/24</span>
+                                </div>
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-gray-500">Retards:</span>
+                                    <span class="font-medium">0</span>
+                                </div>
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-gray-500">Absences:</span>
+                                    <span class="font-medium">0</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="border rounded-lg p-4 hover:shadow-md transition">
+                            <div class="flex items-center mb-3">
+                                <div class="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center mr-3">
+                                    <i class="fas fa-user text-gray-500"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-medium">Pierre Bernard</h3>
+                                    <p class="text-sm text-gray-500">Manager</p>
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-gray-500">Présences:</span>
+                                    <span class="font-medium">20/24</span>
+                                </div>
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-gray-500">Retards:</span>
+                                    <span class="font-medium">5</span>
+                                </div>
+                                <div class="flex justify-between text-sm">
+                                    <span class="text-gray-500">Absences:</span>
+                                    <span class="font-medium">4</span>
+                                </div>
+                            </div>
+                        </div> -->
+                        
+                        <!-- More employee cards would go here -->
                     </div>
                 </div>
                 <div class="px-4 py-3 bg-gray-50 border-t flex items-center justify-between">
+                    <!-- <div class="text-sm text-gray-500">
+                        Affichage de <span class="font-medium">1</span> à <span class="font-medium">6</span> sur <span class="font-medium">24</span> employés
+                    </div> -->
                     <div class="flex space-x-2">
-                       <a href="export_excel.php" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition flex items-center">
+                        <!-- Ancien bouton Excel -->
+<a href="export_excel.php" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition flex items-center">
     <i class="fas fa-file-excel mr-2"></i> Exporter Excel
 </a>
 
@@ -265,43 +373,58 @@ $resultats = $manager->getPresencesDuJour($date);
 <a href="export_pdf.php" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition flex items-center">
     <i class="fas fa-file-pdf mr-2"></i> Exporter PDF
 </a>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
     <script>
     // Toggle mobile menu
     document.getElementById('menuToggle').addEventListener('click', function() {
         document.getElementById('sidebar').classList.add('open');
     });
+
     document.getElementById('closeMenu').addEventListener('click', function() {
         document.getElementById('sidebar').classList.remove('open');
     });
-    // Navigation entre sections
+
+    // Navigation between pages
     document.querySelectorAll('nav a').forEach(link => {
         link.addEventListener('click', function(e) {
-            if (this.getAttribute('href') === 'logout.php') return;
+            // Si le lien est "paramètre.html", laisser la redirection naturelle
+            if (this.getAttribute('href') === 'paramètre.html') {
+                return;
+            }
             e.preventDefault();
-            document.querySelectorAll('main, #rapport').forEach(section => section.classList.add('hidden'));
+
+            // Hide all sections
+            document.querySelectorAll('main, #rapport').forEach(section => {
+                section.classList.add('hidden');
+            });
+
+            // Show the selected section
             const target = this.getAttribute('href');
             if (target === '#rapport') {
                 document.getElementById('rapport').classList.remove('hidden');
             } else {
                 document.querySelector('main').classList.remove('hidden');
             }
+
+            // Close mobile menu if open
             document.getElementById('sidebar').classList.remove('open');
         });
     });
-    // Simuler les boutons d'export
+
+    // Simulate export buttons
     document.querySelectorAll('button').forEach(button => {
         if (button.textContent.includes('Excel') || button.textContent.includes('PDF')) {
             button.addEventListener('click', function() {
-                alert('Fonctionnalité d\'export disponible dans la version complète');
+                alert('Export fonctionnel dans une version complète avec backend');
             });
         }
     });
-    </script>
+        </script>
 </body>
 </html>
-

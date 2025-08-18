@@ -17,14 +17,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         try {
             // Requête sur la table "Admin" (avec guillemets car nom en majuscule)
-            $stmt = $pdo->prepare('SELECT "mot_de_passe" FROM "Admin" WHERE "nom" = :nom');
+            $stmt = $pdo->prepare('SELECT "mot_de_passe", "idAdmin" FROM "Admin" WHERE "nom" = :nom');
             $stmt->execute(['nom' => $nom]);
             $admin = $stmt->fetch(PDO::FETCH_ASSOC);
 
             // Vérification : nom existe et mot de passe correspond (en clair)
             if ($admin && $password === $admin['mot_de_passe']) {
-                $_SESSION['connecte'] = true;
-                $_SESSION['nom'] = $nom;
+                $_SESSION['admin_id'] = $admin['idAdmin'];
+                $_SESSION['admin_nom'] = $nom;
                 header('Location: Dashboard.php');
                 exit;
             } else {

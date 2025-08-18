@@ -1,5 +1,5 @@
 <?php
-require_once 'includes/PresenceManager.php';
+require_once 'PresenceManager.php';
 
 header('Content-Type: application/json');
 

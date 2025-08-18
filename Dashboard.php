@@ -4,6 +4,19 @@ if (!isset($_SESSION['admin_id'])) {
     header('Location: Connexion.php');
     exit();
 }
+
+// Database connection
+require_once 'Database.php';
+$database = new Database();
+$pdo = $database->getConnection();
+
+// Get presence data for today
+$date = date('Y-m-d');
+
+// Using the PresenceManager class
+require_once 'PresenceManager.php';
+$presenceManager = new PresenceManager();
+$resultats = $presenceManager->getPresencesDuJour($date);
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -260,106 +273,99 @@ if (!isset($_SESSION['admin_id'])) {
             </div>
             <!-- Presence Table -->
             <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
-    <div class="p-6 border-b border-gray-100">
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-            <div>
-                <h2 class="text-xl font-bold text-gray-800">Liste des présences</h2>
-                <p class="text-gray-600 text-sm mt-1">Suivi en temps réel</p>
-            </div>
-            <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
-                <div class="relative">
-                    <input type="text" placeholder="Rechercher un employé..." class="search-input pl-12 pr-4 py-3 rounded-xl focus:outline-none w-full md:w-80">
-                    <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                <div class="p-6 border-b border-gray-100">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                        <div>
+                            <h2 class="text-xl font-bold text-gray-800">Liste des présences</h2>
+                            <p class="text-gray-600 text-sm mt-1">Suivi en temps réel</p>
+                        </div>
+                        <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+                            <div class="relative">
+                                <input type="text" placeholder="Rechercher un employé..." class="search-input pl-12 pr-4 py-3 rounded-xl focus:outline-none w-full md:w-80">
+                                <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                            </div>
+                            <select class="search-input px-4 py-3 rounded-xl focus:outline-none">
+                                <option>Tous les statuts</option>
+                                <option>Présent</option>
+                                <option>Absent</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
-                <select class="search-input px-4 py-3 rounded-xl focus:outline-none">
-                    <option>Tous les statuts</option>
-                    <option>Présent</option>
-                    <option>Absent</option>
-                </select>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Employé</th>
+                                <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Poste</th>
+                                <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Statut</th>
+                                <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Heure d'arrivée</th>
+                                <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100">
+                            <?php foreach ($resultats as $row): ?>
+                                <?php 
+                                    $statusClass = '';
+                                    if (isset($row['statut'])) {
+                                        $status = strtolower($row['statut']);
+                                        if ($status === 'présent') {
+                                            $statusClass = 'present';
+                                        } elseif ($status === 'absent') {
+                                            $statusClass = 'absent';
+                                        } elseif ($status === 'en retard') {
+                                            $statusClass = 'late';
+                                        }
+                                    }
+                                ?>
+                                <tr class="hover:bg-gray-50 transition-colors">
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center">
+                                            <div class="w-12 h-12 rounded-full bg-gradient-to-r from-blue-400 to-purple-400 flex items-center justify-center mr-4">
+                                                <span class="text-white font-medium text-sm">
+                                                    <?php echo strtoupper(substr($row['prenom'], 0, 1) . substr($row['nom'], 0, 1)); ?>
+                                                </span>
+                                            </div>
+                                            <div>
+                                                <p class="font-medium text-gray-800">
+                                                    <?php echo htmlspecialchars($row['prenom'] . ' ' . $row['nom']); ?>
+                                                </p>
+                                                <p class="text-sm text-gray-500">ID: #<?php echo $row['id'] ?? '000'; ?></p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                            <?php echo htmlspecialchars($row['poste']); ?>
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="status-badge <?php echo $statusClass; ?>">
+                                            <?php echo htmlspecialchars($row['statut'] ?? 'Absent'); ?>
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center text-sm text-gray-600">
+                                            <i class="fas fa-clock mr-2 text-gray-400"></i>
+                                            <?php echo htmlspecialchars($row['heure_arrivee'] ?? '-'); ?>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center space-x-2">
+                                            <button class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="p-2 text-gray-600 hover:bg-gray-50 rounded-lg transition">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
-    </div>
-    
-    <div class="overflow-x-auto">
-        <table class="w-full">
-            <thead class="bg-gray-50">
-                <tr>
-                    <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Employé</th>
-                    <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Poste</th>
-                    <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Statut</th>
-                    <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Heure d'arrivée</th>
-                    <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Actions</th>
-                </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-100">
-                <?php foreach ($resultats as $row): ?>
-                    <?php 
-                        $statusClass = '';
-                        if (isset($row['statut'])) {
-                            $status = strtolower($row['statut']);
-                            if ($status === 'présent') {
-                                $statusClass = 'present';
-                            } elseif ($status === 'absent') {
-                                $statusClass = 'absent';
-                            } elseif ($status === 'en retard') {
-                                $statusClass = 'late';
-                            }
-                        }
-                    ?>
-                    <tr class="hover:bg-gray-50 transition-colors">
-                        <td class="px-6 py-4">
-                            <div class="flex items-center">
-                                <div class="w-12 h-12 rounded-full bg-gradient-to-r from-blue-400 to-purple-400 flex items-center justify-center mr-4">
-                                    <span class="text-white font-medium text-sm">
-                                        <?php echo strtoupper(substr($row['prenom'], 0, 1) . substr($row['nom'], 0, 1)); ?>
-                                    </span>
-                                </div>
-                                <div>
-                                    <p class="font-medium text-gray-800">
-                                        <?php echo htmlspecialchars($row['prenom'] . ' ' . $row['nom']); ?>
-                                    </p>
-                                    <p class="text-sm text-gray-500">ID: #<?php echo $row['id'] ?? '000'; ?></p>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="px-6 py-4">
-                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                                <?php echo htmlspecialchars($row['poste']); ?>
-                            </span>
-                        </td>
-                        <td class="px-6 py-4">
-                            <span class="status-badge <?php echo $statusClass; ?>">
-                                <?php echo htmlspecialchars($row['statut'] ?? 'Absent'); ?>
-                            </span>
-                        </td>
-                        <td class="px-6 py-4">
-                            <div class="flex items-center text-sm text-gray-600">
-                                <i class="fas fa-clock mr-2 text-gray-400"></i>
-                                <?php echo htmlspecialchars($row['heure_arrivee'] ?? '-'); ?>
-                            </div>
-                        </td>
-                        <td class="px-6 py-4">
-                            <div class="flex items-center space-x-2">
-                                <button class="p-2 text-gray-600 hover:bg-gray-50 rounded-lg transition edit-btn" 
-                                        data-id="<?php echo $row['id']; ?>"
-                                        data-prenom="<?php echo htmlspecialchars($row['prenom']); ?>"
-                                        data-nom="<?php echo htmlspecialchars($row['nom']); ?>"
-                                        data-poste="<?php echo htmlspecialchars($row['poste']); ?>"
-                                        data-statut="<?php echo htmlspecialchars($row['statut'] ?? 'Absent'); ?>"
-                                        data-heure="<?php echo htmlspecialchars($row['heure_arrivee'] ?? ''); ?>">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition delete-btn" data-id="<?php echo $row['id']; ?>">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
-</div>
         </main>
         <!-- End of Dashboard Content -->
         <!-- Rapport Section -->

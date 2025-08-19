@@ -162,6 +162,17 @@ $resultats = $presenceManager->getPresencesDuJour($date);
                         </div>
                     </a>
                 </li>
+                 <li>
+                <a href="#scan" class="nav-item flex items-center p-4 text-white">
+                    <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center mr-4">
+                        <i class="fas fa-qrcode"></i>
+                    </div>
+                    <div>
+                        <span class="font-medium">Scan</span>
+                        <p class="text-xs text-gray-300">Empreintes</p>
+                    </div>
+                </a>
+            </li>
                 <li>
                     <a href="deconnexion.php" class="nav-item flex items-center p-4 text-white">
                         <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center mr-4">
@@ -538,6 +549,48 @@ $resultats = $presenceManager->getPresencesDuJour($date);
             </div>
         </div>
     </div>
+    <!-- Scan Section -->
+<div id="scan" class="px-6 pb-6 hidden">
+    <div class="bg-white rounded-2xl shadow-lg p-6 glassmorphism mb-6">
+        <h1 class="text-3xl font-bold text-gray-800 mb-2">Liste des Scans</h1>
+        <p class="text-gray-600">Tableau récapitulatif des scans effectués</p>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-lg overflow-hidden card-hover">
+        <div class="overflow-x-auto">
+            <table class="w-full">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">#</th>
+                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">N° Série</th>
+                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Nom</th>
+                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Département</th>
+                        <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Exemple statique. À remplacer plus tard par PHP si besoin -->
+                    <tr class="hover:bg-gray-50 transition-colors">
+                        <td class="px-6 py-4">1</td>
+                        <td class="px-6 py-4">SCN-001</td>
+                        <td class="px-6 py-4">Jean Dupont</td>
+                        <td class="px-6 py-4">RH</td>
+                        <td class="px-6 py-4">
+                            <div class="flex items-center space-x-2">
+                                <button class="p-2 text-yellow-600 hover:bg-yellow-50 rounded-lg transition">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
         <script>
         // Toggle mobile menu
         document.getElementById('menuToggle').addEventListener('click', function() {
@@ -565,7 +618,7 @@ $resultats = $presenceManager->getPresencesDuJour($date);
                 // Add active class to clicked item
                 this.classList.add('active');
                 // Hide all sections
-                document.querySelectorAll('main, #rapport, #direction, #employés').forEach(section => {
+                document.querySelectorAll('main, #rapport, #direction, #employés, #scan').forEach(section => {
                     section.classList.add('hidden');
                 });
                 // Show the selected section
@@ -576,6 +629,8 @@ $resultats = $presenceManager->getPresencesDuJour($date);
                     document.getElementById('direction').classList.remove('hidden');
                 } else if (target === '#employés') {
                     document.getElementById('employés').classList.remove('hidden');
+                } else if (target === '#scan') {
+                    document.getElementById('scan').classList.remove('hidden');
                 } else {
                     document.querySelector('main').classList.remove('hidden');
                 }
